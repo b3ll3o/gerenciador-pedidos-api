@@ -25,24 +25,24 @@ describe('UsuariosService', () => {
 
   describe('cadastraNovoUsuario', () => {
     it('deve retorna um usuario com id', async () => {
-      const usuario = await service.cadastra(usuarioFactory());
+      const usuario = await service.cadastra(usuarioFactory({}));
       expect(usuario.id).not.toBeUndefined();
       expect(usuario.id).not.toBeNull();
     });
 
     it('deve retorna um usuario cadastrado com o mesmo email passado', async () => {
-      const usuario = await service.cadastra(usuarioFactory());
+      const usuario = await service.cadastra(usuarioFactory({}));
       expect(usuario.email).toBe(EMAIL);
     });
 
     it('deve retorna um usuario csem senha', async () => {
-      const usuario = await service.cadastra(usuarioFactory());
+      const usuario = await service.cadastra(usuarioFactory({}));
       expect(usuario.senha).toBeUndefined();
     });
 
     it('não deve ser possivel cadastrar dois usuarios com o mesmo email', async () => {
-      await service.cadastra(usuarioFactory());
-      await expect(service.cadastra(usuarioFactory())).rejects.toThrow(
+      await service.cadastra(usuarioFactory({}));
+      await expect(service.cadastra(usuarioFactory({}))).rejects.toThrow(
         UsuarioJaCadastradoErro,
       );
     });
